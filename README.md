@@ -3,7 +3,7 @@ Este repositório contem um Web Crawler (Scraper) para o site TripAdvisor desenv
 
 # Como executar
 ## Dependências
-### Selenium
+### Bibliotecas
 Este algoritmo utilizou as bibliotecas Selenium e webdriver-manager, que podem ser instaladas (utilizando Pip) com os seguintes comandos no terminal
 ```
 pip install selenium

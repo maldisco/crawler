@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 # A custom wait for WebDriverWait
 # Will wait until search has found something
@@ -17,13 +19,12 @@ class element_finished_searching(object):
         else:
             return element
 
-# Returns rating (0-5) and number of reviews from tripadvisor
+# Returns rating [0,5] and number of reviews from tripadvisor
 # @param search_term - place being searched
 def get_rating_reviews_from(search_term):
     TRIPADVISOR_URL = "https://www.tripadvisor.com.br"
-    WEBDRIVER_PATH = "chromedriver.exe"
 
-    driver = webdriver.Chrome(WEBDRIVER_PATH)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get(TRIPADVISOR_URL)
     wait = WebDriverWait(driver, 10)
 
@@ -37,9 +38,7 @@ def get_rating_reviews_from(search_term):
 
     return rating, number_of_reviews
 
-SEARCH_TERM = "Congresso Nacional - Brasília"
-
-rating, number_of_reviews = get_rating_reviews_from(SEARCH_TERM)
+rating, number_of_reviews = get_rating_reviews_from("Congresso Nacional - Brasília")
 
 print(f'''
 ## Resultado da coleta de dados ##

@@ -24,7 +24,9 @@ class element_finished_searching(object):
 def get_rating_reviews_from(search_term):
     TRIPADVISOR_URL = "https://www.tripadvisor.com.br"
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    custom_options = webdriver.ChromeOptions()
+    custom_options.add_argument("--headless")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=custom_options)
     driver.get(TRIPADVISOR_URL)
     wait = WebDriverWait(driver, 10)
 
@@ -38,9 +40,9 @@ def get_rating_reviews_from(search_term):
 
     return rating, number_of_reviews
 
-rating, number_of_reviews = get_rating_reviews_from("Congresso Nacional - Brasília")
-
-print(f'''
-## Resultado da coleta de dados ##
-Avaliação do local: {rating} de {number_of_reviews} avaliações.
-''')
+if __name__ == "__main__":
+    rating, number_of_reviews = get_rating_reviews_from("Congresso Nacional - Brasília")
+    print(f'''
+    ## Resultado da coleta de dados ##
+    Avaliação do local: {rating} de {number_of_reviews} avaliações.
+    ''')
